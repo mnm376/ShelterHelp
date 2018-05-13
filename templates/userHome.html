@@ -1,0 +1,86 @@
+
+{% extends "layout.html" %}
+
+
+{% block content %}
+
+<title>User Homepage</title>
+
+<style type="text/css">
+    .flex-row {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .flex-row > [class*='col-'] {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .flex-row .thumbnail,
+    .flex-row .caption {
+        flex-direction: column;
+        display: flex;
+        flex: 1 0 auto;
+        height: auto;
+        position: relative;
+    }
+    .flex-text {
+        flex-grow: 1;
+    }
+    .flex-row img {
+        min-width: 0;
+        width: 100%;
+    }
+</style>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Animals to Adopt
+      </h1>
+        </div>
+    </div>
+    <!-- /.row -->
+</div>
+<br>
+
+<div class="container">
+    <div class="flex-row row">
+
+        {% for animal in animals %}
+        <div class="col-xs-6 col-sm-4 col-lg-3">
+            <div class="thumbnail">
+                <div class="caption">
+                    <img src={{animal.img_path}}>
+                    <h3>{{animal.Name}}</h2>
+                    <p class="flex-text text-muted">{{animal.Temperament}}
+                    </p>
+                    <main class="container cards-section">
+                        <div class="section-content">
+                            <form method = "POST" action="/adoptAnimal" >
+                                <input type="hidden" name="aID" value={{animal.Animal_id}}>
+                                <input type="hidden" name="oID" value={{animal.Organization_id}}>
+                                <input type="hidden" name="postID" value='MI'>
+                                {{ form.hidden_tag() }}
+                                {{ form.submit(class = "btn-primary")}}
+                            </form><br><br>
+                        </div>
+                    </main>
+                </div>
+                <!-- /.caption -->
+            </div>
+            <!-- /.thumbnail -->
+        </div>
+        {% endfor %}
+
+
+
+    </div>
+    <!-- /.flex-row  -->
+</div>
+
+
+
+
+{% endblock %}

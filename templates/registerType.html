@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+	
+{% block content %}
+<main class="center-block" style="text-align: center;">
+	<div style="margin-bottom: 10px">
+		<a class="btn btn-primary btn-lg active" role="button" href="{{ url_for('organizationRegister') }}">Register as an Organization</a>
+	</div>
+	<div style="margin-bottom: 10px">
+		<a class="btn btn-primary btn-lg active" role="button" href="{{ url_for('employeeRegister') }}">Register as an Employee</a>
+	</div>
+	<div style="margin-bottom: 10px">
+		<a class="btn btn-primary btn-lg active" role="button" href="{{ url_for('userRegister') }} ">Register as an Adopter</a>
+	</div>
+</main>
+{% endblock %}

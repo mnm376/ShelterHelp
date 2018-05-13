@@ -1,0 +1,93 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<style type="text/css">
+    .flex-row {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .flex-row > [class*='col-'] {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .flex-row .thumbnail,
+    .flex-row .caption {
+        flex-direction: column;
+        display: flex;
+        flex: 1 0 auto;
+        height: auto;
+        position: relative;
+    }
+    .flex-text {
+        flex-grow: 1;
+    }
+    .flex-row img {
+        min-width: 0;
+        width: 100%;
+    }
+</style>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header" align="center">{{animal.Name}}</h1>
+        </div>
+    </div>
+    <!-- /.row -->
+</div>
+<br>
+
+<div class="container">
+    <div class="flex-row row card">
+        <div class="col-sm-4 center-block">
+            <div>
+                <div class="caption card-image" style="padding-top: 20px">
+                    <img style="display: block; margin: auto;" src={{animal.img_path}}>
+                </div>
+                <!-- /.caption -->
+            </div>
+            <!-- /.thumbnail -->
+        </div>
+        <div class="card-content center-block" style="text-align: center;" >
+            <h3>Organization: {{orgname}}</h3>
+            <p><b>Temperament</b>: {{animal.Temperament}}</p>
+            <p><b>Type</b>: {{animal.Type}}</p>
+            <p><b>Breed</b>: {{animal.Breed}}</p>
+            <p><b>Color</b>: {{animal.Color}}</p>
+            <p><b>Size</b>: {{animal.Size}}</p>
+            <p><b>Age</b>: {{animal.Age}}</p>
+            <p><b>Medical History</b>: {{animal.Medical_history}}</p>
+
+        </div>
+
+        <main class="container adoptAnimal-section">
+            <div class="section-content">
+            <div align="center">
+            <form method = "POST" action="/adoptAnimal" >
+                <input type="hidden" name="anID" value={{animal.Animal_id}}>
+                <input type="hidden" name="oID" value={{animal.Organization_id}}>
+                <input type="hidden" name="adID" value={{user.Adopter_id}}>
+                <input type="hidden" name="postID" value='Adopt'>
+                {{ form.hidden_tag() }}
+                {{ form.submit(class = "btn-primary")}}
+            </form><br>
+            <form method = "POST" action="/adoptAnimal" >
+                <input type="hidden" name="anID" value={{animal.Animal_id}}>
+                <input type="hidden" name="oID" value={{animal.Organization_id}}>
+                <input type="hidden" name="adID" value={{user.Adopter_id}}>
+                <input type="hidden" name="postID" value='Fav'>
+                {{ form1.hidden_tag() }}
+                {{ form1.submit(class = "btn-primary")}}
+            </form><br>
+            </div>
+            </div>
+        </main>
+
+    </div>
+    <!-- /.flex-row  -->
+</div>
+
+{% endblock %}

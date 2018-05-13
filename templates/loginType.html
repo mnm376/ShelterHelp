@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+	
+{% block content %}
+<main class="center-block" style="text-align: center;">
+	<div style="margin-bottom: 10px">
+		<a class="btn btn-primary btn-lg active" role="button" href="{{ url_for('employeeLogin') }}">Login as an Employee</a>
+	</div>
+	<div style="margin-bottom: 10px">
+		<a class="btn btn-primary btn-lg active" role="button" href="{{ url_for('userLogin') }} ">Login as an Adopter</a>
+	</div>
+</main>
+{% endblock %}

@@ -1,0 +1,47 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light teal lighten-2" style="margin-bottom: 20px; height: 90px;">
+  <img class="img-responsive" style="margin-right: 20px" src="{{url_for('static', filename='photos/if_pug_22396.png')}}">
+  <a class="navbar-brand" style="font-size: 30px" href="{{url_for('index')}}">ShelterHelp</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      
+    {% if session['user'] %}
+      <li class="nav-item active">
+        {% if session['userType'] == 'Employee' %}
+        <li class="nav-item">
+          <a class="nav-link" style="font-size: 15px; color: white" href="{{url_for('employeeHome')}}">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" style="font-size: 15px; color: white" href="{{ url_for('stats') }}">Organization Stats<span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" style="font-size: 15px; color: white" href="{{ url_for('transfer') }}">Transfer Animal<span class="sr-only">(current)</span></a>
+        </li>
+        {% else %}
+        <li class="nav-item">
+          <a class="nav-link" style="font-size: 15px; color: white" href="{{url_for('userHome')}}">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" style="font-size: 15px; color: white" href="{{ url_for('stats') }}">Organization Stats<span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" style="font-size: 15px; color: white" href="{{ url_for('userFavorites') }}">Favorites<span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" style="font-size: 15px; color: white" href="{{url_for('recommendedAnimals')}}">Recommended <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" style="font-size: 15px; color: white" href="{{ url_for('userAdoptions') }}">Adoptions<span class="sr-only">(current)</span></a>
+        </li>
+        {% endif %}
+        <li class="nav-item">
+          <a class="nav-link" style="font-size: 15px; color: black" href="{{url_for('logout')}}"><b>Logout </b><span class="sr-only">(current)</span></a>
+        </li>
+      </li>
+    {% endif %}
+  </ul>
+</div>
+</nav>

@@ -1,0 +1,37 @@
+
+{% extends "layout.html" %}
+
+
+{% block content %}
+<title>Transfer Animal</title>
+
+<main class="container transferAnimal-section" style="margin: 0 auto;">
+	<div class="section-content" style="text-align: center; padding-bottom: 10px" >
+		<h2>Transfer </h2>
+		<form method = "POST" action="/transferAnimal">
+			{{ form.hidden_tag() }}
+			<div class="form-group">
+				{{form.organization_id.label}}
+				{{form.organization_id(class="browser-default")}}
+			</div>
+				<input type="hidden" name="anID" value={{anID}}>
+				<input type="hidden" name="postID" value='PostTransfer'>
+			</div>
+			<div class="form-group">
+				{{form.location.label}}
+				{{form.location}}
+			</div>
+			{{ form.submit(class = "btn-primary")}}
+		</form>
+	</div>
+	{% if error is defined %}
+		<div class="alert alert-danger" role="alert" style="width: auto;  text-align: center;">
+  			<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+  			<span class="sr-only">Error:</span>
+  					{{ error }}
+			</div>
+	{% endif %}
+</main>	
+
+
+{% endblock %}

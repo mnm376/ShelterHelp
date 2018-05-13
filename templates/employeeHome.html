@@ -1,0 +1,374 @@
+
+{% extends "layout.html" %}
+
+
+{% block content %}
+
+
+
+<title>Dashboard</title>
+{% for info in myInfo %}
+<h1 style="text-align: center;">Welcome, {{info.Name}}!</h1>
+
+
+
+
+
+
+<div class="well" style="text-align: center; padding-top: 30px; padding-bottom: 30px; width: 70%; margin-left: auto;
+margin-right: auto;">
+	<ul class="list-group">
+		<li class="list-group-item"><b>Location</b>: {{info.Location}}</li>
+		<li class="list-group-item"><b>Phone_number</b>: {{info.Phone_number}}</li>
+		<li class="list-group-item"><b>Capacity</b>: {{info.Capacity}}</li>
+	</ul>
+</div>
+
+{% endfor %}
+
+
+<main class="container signup-section">
+	<div class="section-content">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ul class="nav nav-tabs nav-pills nav-fill" id="myTab" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" id="animals-tab" data-toggle="tab" href="#animals" role="tab" aria-controls="animals" aria-selected="true">Animals</a>
+  </li>
+
+  <li class="nav-item">
+    <a class="nav-link" id="supplies-tab" data-toggle="tab" href="#supplies" role="tab" aria-controls="supplies" aria-selected="false">Supplies</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="transfers-tab" data-toggle="tab" href="#transfers" role="tab" aria-controls="transfers" aria-selected="false">Incoming Transfers</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="outgoing-tab" data-toggle="tab" href="#outgoing" role="tab" aria-controls="outgoing" aria-selected="false">Outgoing Transfers</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="Adoptions-tab" data-toggle="tab" href="#adoptionR" role="tab" aria-controls="adoptionR" aria-selected="false">Adoption Requests</a>
+  </li>
+
+</ul><br>
+
+
+
+
+
+<div class="tab-content" id="myTabContent" style="display: none; width: 100%">
+  <div class="tab-pane fade show active" id="animals" role="tabpanel" aria-labelledby="animals-tab">
+	<div class="container-fluid" >
+		<table id="animalData" class="table table-striped table-hover table-bordered table-responsive" >
+			<thead>
+				<th>Medical_history</th>
+				<th>Age</th>
+				<th>Type</th>
+				<th>Breed</th>
+				<th>Temperament</th>
+				<th>Color</th>
+				<th>Size</th>
+				<th>Name</th>
+				<th>Animal_id</th>
+				<th>Details</th>
+			</thead>
+			<tbody>
+				{% for animal,org in myAnimals %}
+				<tr>
+					<td>{{animal.Medical_history}}</td>
+					<td>{{animal.Age}}            </td>
+					<td>{{animal.Type}}           </td>
+					<td>{{animal.Breed}}          </td>
+					<td>{{animal.Temperament}}    </td>
+					<td>{{animal.Color}}          </td>
+					<td>{{animal.Size}}           </td>
+					<td>{{animal.Name}}           </td>
+					<td>{{animal.Animal_id}}      </td>
+					<td> More Info </td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+  </div>
+
+
+  <div class="tab-pane fade" id="supplies" role="tabpanel" aria-labelledby="supplies-tab">
+	  <div class="container-fluid">
+		  <table table id="suppliestbl" class="table table-striped table-hover table-bordered table-responsive" >
+			  <thead>
+				  <th>Description </th>    
+				  <th>Title       </th>    
+				  <th>Amount      </th>    
+				  <th>Type        </th>    
+				  <th>Supply_id   </th>    
+			  </thead>
+			  <tbody>
+				  
+				  {% for supply in mySupplies %}
+				  <tr>
+				  <td>{{supply.Description}}</td>
+				  <td>{{supply.Title}}      </td> 
+				  <td>{{supply.Amount}}     </td> 
+				  <td>{{supply.Type}}       </td> 
+				  <td>{{supply.Supply_id}}  </td> 
+				   </tr>
+				  {% endfor %}
+
+			  </tbody>
+		  </table>
+	  </div>
+  </div>
+
+
+
+
+
+
+
+
+
+  <div class="tab-pane fade" id="transfers" role="tabpanel" aria-labelledby="transfers-tab">
+	  <div class="container-fluid">
+		  <table table id="transferstbl" class="table table-striped table-hover table-bordered table-responsive" style="width: auto;" >
+			  <thead>
+				  <th>Animal				</th>
+				  <th>Animal Name				</th>
+				  <th>MeetUp Location			</th>
+				  <th>Transportation type		</th>
+				  <th>Time					</th>
+				  <th>Transfer From				</th>
+				  <th>Status					</th>
+				  <th>Decision					</th>
+			  </thead>
+			  <tbody>
+				  {% for tran, anim, org, to in myTransfers %}
+				  <tr>
+					  <td><img src={{anim.img_path}} style="height: 100px; width: 100px"></td>
+					  <td>{{anim.Name}}</td>
+					  <td>{{tran.MeetUp_Location}}</td>
+					  <td>{{tran.Transportation_type}}</td>
+					  <td>{{tran.Time}}</td>
+					  <td>{{org.Name}}</td>
+					  <td>{{tran.Status}}</td>
+					  <td>
+					  	<form method = "POST" action="/employeeHome" >
+			                <input type="hidden" name="postID" value='Incoming'>
+			                <input type="hidden" name="decision" value='Yes'>
+			                <input type="hidden" name="transID" value={{tran.Transaction_id}}>
+			                {{ form.hidden_tag() }}
+			                {{ form.submit(class = "btn-primary")}}
+		            	</form>
+		            	<form method = "POST" action="/employeeHome" >
+			                <input type="hidden" name="postID" value='Incoming'>
+			                <input type="hidden" name="decision" value='No'>
+			                <input type="hidden" name="transID" value={{tran.Transaction_id}}>
+			                {{ form1.hidden_tag() }}
+			                {{ form1.submit(class = "btn-primary")}}
+		            	</form>
+		            </td>
+				  </tr>
+				  {% endfor %}
+			  </tbody>
+		  </table>
+	  </div>
+  </div>
+
+
+
+    <div class="tab-pane fade" id="outgoing" role="tabpanel" aria-labelledby="outgoing-tab">
+	  <div class="container-fluid">
+		  <table table id="transferstblout" class="table table-striped table-hover table-bordered table-responsive" style="width: auto;" >
+			  <thead>
+				  <th>Animal				</th>
+				  <th>Animal Name				</th>
+				  <th>Organization Picking Up			</th>
+				  <th>Has the Organization Picked the Animal Up?					</th>
+			  </thead>
+			  <tbody>
+				  {% for tran, anim, org, to in incoming %}
+				  <tr>
+					  <td><img src={{anim.img_path}} style="height: 100px; width: 100px"></td>
+					  <td>{{anim.Name}}</td>
+					  <td>{{org.Name}}</td>
+					  <td>
+					  	<form method = "POST" action="/employeeHome" >
+			                <input type="hidden" name="postID" value='Outgoing'>
+			                <input type="hidden" name="decision" value='Yes'>
+			                <input type="hidden" name="transID" value={{tran.Transaction_id}}>
+			                <input type="hidden" name="animalID" value={{anim.Animal_id}}>
+			                <input type="hidden" name="orgToID" value={{tran.Transfer_to}}>
+			                {{ form2.hidden_tag() }}
+			                {{ form2.submit(class = "btn-primary")}}
+		            	</form>
+		            </td>
+				  </tr>
+				  {% endfor %}
+			  </tbody>
+		  </table>
+	  </div>
+  </div>
+
+
+    <div class="tab-pane fade" id="adoptionR" role="tabpanel" aria-labelledby="adoptionR-tab">
+	  <div class="container-fluid">
+		  <table table id="adoptionRtbl" class="table table-striped table-hover table-bordered table-responsive" style="width: auto;" >
+			  <thead>
+				  <th>Animal				</th>
+				  <th>Animal Name				</th>
+				  <th>Adopter Username			</th>
+				  <th>Decision					</th>
+			  </thead>
+			  <tbody>
+				  {% for adoption, anim, org, ad in adoptions %}
+				  <tr>
+					  <td><img src={{anim.img_path}} style="height: 100px; width: 100px"></td>
+					  <td>{{anim.Name}}</td>
+					  <td>{{ad.Username}}</td>
+					  <td>
+					  	<form method = "POST" action="/employeeHome" >
+			                <input type="hidden" name="postID" value='Adopt'>
+			                <input type="hidden" name="decision" value='Yes'>
+			                <input type="hidden" name="animID" value={{adoption.Animal_id}}>
+			                <input type="hidden" name="adoptID" value={{adoption.Adopter_id}}>
+			                {{ form3.hidden_tag() }}
+			                {{ form3.submit(class = "btn-primary")}}
+		            	</form>
+		            	<form method = "POST" action="/employeeHome" >
+			                <input type="hidden" name="postID" value='Adopt'>
+			                <input type="hidden" name="decision" value='No'>
+			                <input type="hidden" name="animID" value={{adoption.Animal_id}}>
+			                <input type="hidden" name="adoptID" value={{adoption.Adopter_id}}>
+			                {{ form4.hidden_tag() }}
+			                {{ form4.submit(class = "btn-primary")}}
+		            	</form>
+		            </td>
+				  </tr>
+				  {% endfor %}
+			  </tbody>
+		  </table>
+	  </div>
+  </div>
+
+
+	</div>
+</main>
+
+
+
+
+
+
+<script type="text/javascript">
+	$(document).ready(function() {
+    	$('#animalData').DataTable({
+    		dom: 'Bfrtip',
+    		buttons: [
+            {
+                extend: 'pdfHtml5',
+                messageTop: 'Animal Data',
+                responsive: true
+            },
+            {
+                	extend: 'excelHtml5',
+                	messageTop: 'Animal Data',
+                	responsive: true
+            }
+        ]
+    	});
+    	$('#suppliestbl').DataTable({
+    		dom: 'Bfrtip',
+    		buttons: [
+            {
+                extend: 'pdfHtml5',
+                messageTop: 'Supply Information',
+                responsive: true
+            },
+            {
+                	extend: 'excelHtml5',
+                	messageTop: 'Supply Data',
+                	responsive: true
+            	}
+        ]
+    	});
+    	$('#transferstbl').DataTable({
+    		dom: 'Bfrtip',
+    		buttons: [
+            
+                {
+                	extend: 'pdfHtml5',
+                	messageTop: 'Transfer Data',
+                	responsive: true,
+
+            	},
+            	{
+                	extend: 'excelHtml5',
+                	messageTop: 'Transfer Data',
+                	responsive: true
+            	}
+
+            
+        ]
+    	});
+    	$('#transferstblout').DataTable({
+    		dom: 'Bfrtip',
+    		buttons: [
+            
+                {
+                	extend: 'pdfHtml5',
+                	messageTop: 'Transfer Data',
+                	responsive: true,
+
+            	},
+            	{
+                	extend: 'excelHtml5',
+                	messageTop: 'Transfer Data',
+                	responsive: true
+            	}
+
+            
+        ]
+    	});
+    	$('#adoptionRtbl').DataTable({
+    		dom: 'Bfrtip',
+    		buttons: [
+            
+                {
+                	extend: 'pdfHtml5',
+                	messageTop: 'Transfer Data',
+                	responsive: true,
+
+            	},
+            	{
+                	extend: 'excelHtml5',
+                	messageTop: 'Transfer Data',
+                	responsive: true
+            	}
+
+            
+        ]
+    	});
+    	$('#myTabContent').show();
+	});
+</script>
+
+
+
+
+
+{% endblock %}

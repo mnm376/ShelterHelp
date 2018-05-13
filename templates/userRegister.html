@@ -1,0 +1,51 @@
+
+{% extends "layout.html" %}
+
+
+{% block content %}
+<main class="container userRegister-section">
+	<div class="section-content" style="padding-bottom: 20px">
+		{% if error != ''  %}
+		<div class="alert alert-danger" role="alert" style="width: auto;  text-align: center;">
+  			<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+  			<span class="sr-only">Error:</span>
+  					{{ error }}
+			</div>
+		{% endif %}
+		<h2>Register for an adopter account</h2>
+		<form method = "POST" action="/userRegister">
+			{{ form.hidden_tag() }}
+
+			<div class="form-group">
+				{{form.username.label}}
+				{{form.username}}
+			</div>
+			<div class="form-group">
+				{{form.password.label}}
+				{{form.password}}
+				<font color="red">
+					{{ form.errors['password'] }}
+				</font>
+			</div>
+			<div class="form-group">
+				{{form.personality.label}}
+				{{form.personality}}
+			</div>
+			<div class="form-group">
+				{{form.space.label}}
+				{{form.space}}
+			</div>
+			<div class="form-group">
+				{{form.age_min.label}}
+				{{form.age_min}}
+			</div>
+			<div class="form-group">
+				{{form.age_max.label}}
+				{{form.age_max}}
+			</div>
+			{{ form.submit(class = "btn-primary")}}
+		</form>
+	</div>
+</main>
+
+{% endblock %}

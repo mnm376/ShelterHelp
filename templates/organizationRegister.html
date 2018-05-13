@@ -1,0 +1,60 @@
+
+{% extends "layout.html" %}
+
+
+{% block content %}
+<main class="container organizationRegister-section" style="margin: 0 auto;">
+	<div class="section-content" style="text-align: center; padding-bottom: 20px">
+		<h2>Register your organization</h2>
+		<form method = "POST" action="/organizationRegister">
+			{{ form.hidden_tag() }}
+
+			<div class="form-group">
+				{{form.name.label}}
+				{{form.name}}
+				<font color="red">
+					{{ form.errors['name'] }}
+				</font>
+			</div>
+			<div class="form-group">
+				{{form.username.label}}
+				{{form.username}}
+				<font color="red">
+					{{error}}
+					{{ form.errors['username'] }}
+				</font>
+			</div>
+			<div class="form-group">
+				{{form.password.label}}
+				{{form.password}}
+				<font color="red">
+					{{ form.errors['password'] }}
+				</font>
+			</div>
+			<div class="form-group">
+				{{form.location.label}}
+				{{form.location}}
+				<font color="red">
+					{{ form.errors['location'] }}
+				</font>
+			</div>
+			<div class="form-group">
+				{{form.phone_number.label}}
+				{{form.phone_number}}
+				<font color="red">
+					{{ form.errors['phone_number'] }}
+				</font>
+			</div>
+			<div class="form-group">
+				{{form.capacity.label}}
+				{{form.capacity}}
+				<font color="red">
+					{{ form.errors['capacity'] }}
+				</font>
+			</div>
+			{{ form.submit(class = "btn-primary")}}
+		</form>
+	</div>
+</main>
+
+{% endblock %}
